@@ -20,5 +20,15 @@ namespace Alura.Adopet.Testes
             //assert
             Assert.NotNull(pet);
         }
+
+        [Fact]
+        public void NullStringShouldThrowArgumentNullException()
+        {
+            //arrange
+            string? line = null;
+
+            //act + assert
+            Assert.Throws<ArgumentNullException>(() => line.ConvertFromText());
+        }
     }
 }
