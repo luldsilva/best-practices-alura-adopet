@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Alura.Adopet.Console.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -15,10 +16,7 @@ namespace Alura.Adopet.Console.Commands
 
         public Help()
         {
-            docs = Assembly.GetExecutingAssembly().GetTypes()
-                .Where(t => t.GetCustomAttributes<CommandDoc>().Any())
-                .Select(t => t.GetCustomAttribute<CommandDoc>()!)
-                .ToDictionary(d => d.Instruction);
+            docs = SystemDocumentation.ToDictionary(Assembly.GetExecutingAssembly());
         }
 
         public Task ExecuteAsync(string[] args)

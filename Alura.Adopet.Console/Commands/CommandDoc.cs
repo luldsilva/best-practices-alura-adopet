@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Alura.Adopet.Console.Commands
 {
     [AttributeUsage(AttributeTargets.Class)]
-    internal class CommandDoc : Attribute
+    public class CommandDoc : Attribute
     {
         public CommandDoc(string instruction, string documentation)
         {
