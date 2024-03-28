@@ -13,9 +13,9 @@ namespace Alura.Adopet.Console.Services
     {
         // cria instância de HttpClient para consumir API Adopet
         readonly HttpClient client;
-        public HttpPetClient(string uri = "http://localhost:5057")
+        public HttpPetClient(HttpClient client)
         {
-            client = ConfiguraHttpClient(uri);
+            this.client = client;
         }
         public async Task<IEnumerable<Pet>?> ListPetsAsync()
         {
@@ -23,14 +23,11 @@ namespace Alura.Adopet.Console.Services
             return await response.Content.ReadFromJsonAsync<IEnumerable<Pet>>();
         }
 
-        public static HttpClient ConfiguraHttpClient(string url)
+        public Task CreatePetAsync(Pet pet)
         {
-            HttpClient _client = new HttpClient();
-            _client.DefaultRequestHeaders.Accept.Clear();
-            _client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-            _client.BaseAddress = new Uri(url);
-            return _client;
+            return client.PostAsJsonAsync("pet/add", pet);
         }
+
+
     }
 }

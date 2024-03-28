@@ -2,16 +2,19 @@
 using System.Net.Http.Json;
 using Alura.Adopet.Console;
 using Alura.Adopet.Console.Commands;
+using Alura.Adopet.Console.Services;
 
-Console.ForegroundColor = ConsoleColor.Green;
+var httpPetClient = new HttpPetClient(new AdopetAPIClientFactory().CreateClient("adopet"));
 
 Dictionary<string, ICommand> systemCommands = new()
 {
     {"help",new Help()},
-    {"import",new Import()},
-    {"list",new List()},
+    {"import",new Import(httpPetClient)},
+    {"list",new List(httpPetClient)},
     {"show",new Show()},
 };
+
+Console.ForegroundColor = ConsoleColor.Green;
 
 try
 {
